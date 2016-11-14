@@ -1,13 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {Angular2Apollo} from 'angular2-apollo';
 import gql from 'graphql-tag';
+import 'rxjs/add/operator/map';
 
 const GetAllPeople = gql`
   query getAllPeople {
     allPeople{
       id,
       username,
-      email
+      firstName,
+      lastName
     }
   }
 `;
@@ -18,18 +20,13 @@ const GetAllPeople = gql`
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loading: boolean;
-  allPeople: any;
+  allPeople$;
 
   constructor(private apollo: Angular2Apollo) {
   }
 
   ngOnInit(): void {
-    this.apollo.watchQuery({
-      query: GetAllPeople
-    }).subscribe(({data}) => {
-      this.loading = data.loading;
-      this.allPeople = data.allPeople;
-    });
+    this.allPeople$ = this.apollo.watchQuery({query: GetAllPeople})
+      .map(({data}) => data.allPeople);
   }
 }

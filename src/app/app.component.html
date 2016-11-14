@@ -1,3 +1,3 @@
-<h1>
-  {{title}}
-</h1>
+<ul *ngFor="let people of allPeople$ | async">
+  {{people.firstName}} <{{people.username}}> {{people.lastName}}
+</ul>
