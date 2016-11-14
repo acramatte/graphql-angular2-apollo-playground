@@ -1,3 +1,4 @@
+/// <reference types="typed-graphql" />
 import './polyfills.ts';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
