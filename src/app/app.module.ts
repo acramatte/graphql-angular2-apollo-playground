@@ -8,7 +8,9 @@ import {ApolloModule} from 'angular2-apollo';
 import { AppComponent } from './app.component';
 
 const client = new ApolloClient({
-  networkInterface: createNetworkInterface('http://localhost:4000/graphql')
+  networkInterface: createNetworkInterface({
+    uri:'http://localhost:4000/graphql'
+  })
 });
 
 @NgModule({
