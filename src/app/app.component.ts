@@ -14,6 +14,20 @@ const GetAllPeople = gql`
   }
 `;
 
+const UpdatePeople = gql`
+  mutation updateAPerson {
+    updatePerson(person: {
+      id: "PPBqWA9",
+      lastName: "Luperculle"
+    }) {
+      firstName,
+      lastName,
+      id,
+      username
+    }
+  }
+`;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -28,5 +42,15 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.allPeople$ = this.apollo.watchQuery({query: GetAllPeople})
       .map(({data}) => data.allPeople);
+  }
+
+  mutateClicked() {
+    this.apollo.mutate({
+      mutation: UpdatePeople
+    }).then(({ data }) => {
+      console.log('got data', data);
+    }).catch((error) => {
+      console.log('there was an error sending the query', error);
+    });
   }
 }

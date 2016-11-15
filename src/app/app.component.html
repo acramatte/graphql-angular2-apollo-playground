@@ -1,3 +1,5 @@
 <ul *ngFor="let people of allPeople$ | async">
   {{people.firstName}} <{{people.username}}> {{people.lastName}}
 </ul>
+
+<button (click)="mutateClicked()">Mutate data</button>
