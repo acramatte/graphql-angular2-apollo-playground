@@ -28,6 +28,16 @@ const UpdatePeople = gql`
   }
 `;
 
+const DeletePeople = gql`
+  mutation deletePerson{
+    deletePerson(id: "ByLubHbex") {
+      firstName,
+      lastName,
+      username
+    }
+  }
+`;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -47,6 +57,16 @@ export class AppComponent implements OnInit {
   mutateClicked() {
     this.apollo.mutate({
       mutation: UpdatePeople
+    }).then(({ data }) => {
+      console.log('got data', data);
+    }).catch((error) => {
+      console.log('there was an error sending the query', error);
+    });
+  }
+
+  deleteClicked() {
+    this.apollo.mutate({
+      mutation: DeletePeople
     }).then(({ data }) => {
       console.log('got data', data);
     }).catch((error) => {
