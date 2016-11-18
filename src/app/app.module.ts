@@ -6,6 +6,7 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client';
 import {ApolloModule} from 'angular2-apollo';
 
 import { AppComponent } from './app.component';
+import { PeopleComponent } from './people/people.component';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
@@ -15,7 +16,8 @@ const client = new ApolloClient({
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PeopleComponent
   ],
   imports: [
     BrowserModule,

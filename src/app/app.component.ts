@@ -29,8 +29,8 @@ const UpdatePeople = gql`
 `;
 
 const DeletePeople = gql`
-  mutation deletePerson{
-    deletePerson(id: "ByLubHbex") {
+  mutation deletePerson($id: String!) {
+    deletePerson(id: $id) {
       firstName,
       lastName,
       username
@@ -64,9 +64,10 @@ export class AppComponent implements OnInit {
     });
   }
 
-  deleteClicked() {
+  deleteClicked(id) {
     this.apollo.mutate({
-      mutation: DeletePeople
+      mutation: DeletePeople,
+      variables: { id }
     }).then(({ data }) => {
       console.log('got data', data);
     }).catch((error) => {
