@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Angular2Apollo} from 'angular2-apollo';
+import {Angular2Apollo, ApolloQueryObservable} from 'angular2-apollo';
+import {ApolloQueryResult} from 'apollo-client';
 import gql from 'graphql-tag';
 import 'rxjs/add/operator/map';
 
@@ -44,7 +45,7 @@ const DeletePeople = gql`
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  allPeople$;
+  allPeople$: ApolloQueryObservable<ApolloQueryResult>;
 
   constructor(private apollo: Angular2Apollo) {
   }
