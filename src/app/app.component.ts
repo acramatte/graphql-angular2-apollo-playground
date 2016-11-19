@@ -70,6 +70,7 @@ export class AppComponent implements OnInit {
       variables: { id }
     }).then(({ data }) => {
       console.log('got data', data);
+      this.allPeople$.refetch();
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
