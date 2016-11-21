@@ -68,12 +68,27 @@ export class AppComponent implements OnInit {
   deleteClicked(id) {
     this.apollo.mutate({
       mutation: DeletePeople,
-      variables: { id }
+      variables: { id },
+      updateQueries: {
+        getAllPeople: (prevResult, { mutationResult }) => {
+          const prevPeople = prevResult.allPeople;
+          const newPeople = this.removePeople(prevPeople, id);
+          return Object.assign(prevResult, {
+            allPeople: newPeople
+          });
+        }
+      }
     }).then(({ data }) => {
       console.log('got data', data);
-      this.allPeople$.refetch();
     }).catch((error) => {
       console.log('there was an error sending the query', error);
     });
+  }
+
+  private removePeople(people, id) {
+    const index = people.findIndex(people => people.id === id);
+    return people
+      .slice(0, index)
+      .concat(people.slice(index + 1));
   }
 }
